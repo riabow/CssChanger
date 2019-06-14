@@ -75,6 +75,7 @@ $arPar  = array(
 
   
 }
+
 .qd-icon_logo:hover {
   background-color: yellow;
 
