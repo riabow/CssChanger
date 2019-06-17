@@ -92,58 +92,59 @@ class CssChanger{
 		$out_handle = fopen($out_file, "w+");
 
 		if (!$out_handle) {
-			echo"Can`t write to ".$out_file ;
-			die;
+			echo"\nCan`t write to $out_file \n " ;
+			return;
 		}
 
-		if ($in_handle) {
-			$this->ln=0;
-			$this->BraceFlag = 0;
-			$this->CommentFlag = 0;
-			$this->selector ="";
-		    while (($line = fgets($in_handle)) !== false) {
-		    	$line=trim($line);
-		    	$line = str_replace("{", "\n{\n", $line);
-		    	$line = str_replace("}", "\n}\n", $line);
-	    		
-	    		$line = str_replace("/*", "\n/*\n", $line);
-		    	$line = str_replace("*/", "\n*/\n", $line);
-		    	$line = str_replace(";", ";\n", $line);
+		if (!$in_handle) {
+			echo "\nError opening file $in_file \n";
+			return;
+		}
 
-		    	$line = trim($line);
-		    	if ($line=="") continue; //пустые строки пропустим 
+		$this->ln=0;
+		$this->BraceFlag = 0;
+		$this->CommentFlag = 0;
+		$this->selector ="";
+	    while (($line = fgets($in_handle)) !== false) {
+	    	$line=trim($line);
+	    	$line = str_replace("{", "\n{\n", $line);
+	    	$line = str_replace("}", "\n}\n", $line);
+    		
+    		$line = str_replace("/*", "\n/*\n", $line);
+	    	$line = str_replace("*/", "\n*/\n", $line);
+	    	$line = str_replace(";", ";\n", $line);
 
-		    	$aLane = explode("\n", $line);
-		    	foreach ($aLane as $key => $cLine) {
-		    		$this->ln++;
-		    		$this->processLine($cLine, $out_handle );
-		    	}
-		    }
-		    if (isset($aPar['append_file'])) { 
-		    // Здесь будет дописываться бесконечно текст и надо это как-то решить.
-		    // например если текст уже есть в файле то не нужно его дописывать ...
-		    // или нужно дописывать - решил оставить так.	
-		    	$this->writeOut($out_handle,  $aPar['append_file'] , $this->ln, $this->BraceFlag, $this->CommentFlag  );
-		    }
-			fclose($in_handle);
-			fclose($out_handle);
-			// составим имя бак файла  
-			$bakFileName = $in_file.".bak"; 
-			$Bakprefix=0;
-			while (file_exists($bakFileName.$Bakprefix)) {
-				 echo "Bakprefix $Bakprefix\n ";
-				 $Bakprefix++;
-			}
-			$bakFileName.=$Bakprefix;
+	    	$line = trim($line);
+	    	if ($line=="") continue; //пустые строки пропустим 
 
-			if ( rename($in_file, $bakFileName ) ) {
-				 rename($out_file, $in_file ); 
-			}
+	    	$aLane = explode("\n", $line);
+	    	foreach ($aLane as $key => $cLine) {
+	    		$this->ln++;
+	    		$this->processLine($cLine, $out_handle );
+	    	}
+	    }
+	    if (isset($aPar['append_file'])) { 
+	    // Здесь будет дописываться бесконечно текст и надо это как-то решить.
+	    // например если текст уже есть в файле то не нужно его дописывать ...
+	    // или нужно дописывать - решил оставить так.	
+	    	$this->writeOut($out_handle,  $aPar['append_file'] , $this->ln, $this->BraceFlag, $this->CommentFlag  );
+	    }
+		fclose($in_handle);
+		fclose($out_handle);
+		// составим имя бак файла  
+		$bakFileName = $in_file.".bak"; 
+		$Bakprefix=0;
+		while (file_exists($bakFileName.$Bakprefix)) {
+			 echo "Bakprefix $Bakprefix\n ";
+			 $Bakprefix++;
+		}
+		$bakFileName.=$Bakprefix;
 
-		} else {
-			echo " error opening file $in_file ";
-		    // error opening the file.
-		} 
+		if ( rename($in_file, $bakFileName ) ) {
+			 rename($out_file, $in_file ); 
+		}
+
+		 
 
 	}
 
