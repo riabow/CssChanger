@@ -8,15 +8,41 @@ include "settings.php";
 
 $Ch = new CssChanger();
 
-$Ch->start($arPar, $project_path);
+ $Ch->revert($arPar, $project_path, $origin_path );
+ $Ch->start($arPar, $project_path);
+ //$Ch->only_copy($arPar, $project_path);
 
 class CssChanger{
+
+	function revert($arPar, $project_path , $origin_path){
+		foreach ($arPar as $key => $ChangeSet) {
+			if (isset($ChangeSet['file_name'])){
+				$this->copyFile($origin_path.$ChangeSet['file_name'], $project_path.$ChangeSet['file_name']);
+			}
+		}	
+	}
+
+
+	function only_copy($arPar, $project_path ){
+		foreach ($arPar as $key => $ChangeSet) {
+			if (isset($ChangeSet['copy_file'])){
+				$this->copyFile($ChangeSet['from'], $project_path.$ChangeSet['to']);
+				continue;
+			}
+		}	
+	}	
 
 	function start($arPar, $project_path ){
 
 		foreach ($arPar as $key => $ChangeSet) {
-		// print_r($ChangeSet);	die;
-		$this->change_file($ChangeSet, $project_path );
+			// print_r($ChangeSet);	die;
+
+			if (isset($ChangeSet['copy_file'])){
+				$this->copyFile($ChangeSet['from'], $project_path.$ChangeSet['to']);
+				continue;
+			}
+
+			 $this->change_file($ChangeSet, $project_path );
 		}
 	}
 
@@ -81,6 +107,7 @@ class CssChanger{
 	} // preccesLine 
 
 	function change_file($aPar, $project_path ) {
+		if (!isset($aPar['file_name'])) return; // файл не указан  нечего не делаем . 
 
 		$in_file = $project_path."\\".$aPar['file_name'];
 		$out_file = $in_file.".out";
@@ -140,12 +167,53 @@ class CssChanger{
 		}
 		$bakFileName.=$Bakprefix;
 
-		if ( rename($in_file, $bakFileName ) ) {
+		if (true) { // ( rename($in_file, $bakFileName ) ) {
 			 rename($out_file, $in_file ); 
 		}
 
-		 
+		$this->CorrectCurlBraces($in_file);
 
+	}
+
+	function CorrectCurlBraces($file){
+		$f = file_get_contents($file);
+		$f = str_replace("\n{\n", " {\n", $f);
+		file_put_contents($file, $f); 
+	}
+
+	function copyFile($sorce, $destg){
+		echo "*************\n";
+		if (!file_exists($sorce)) {
+			echo "\n File do NOT  exist $sorce \n";
+		}
+		
+
+		if (! is_readable($sorce)) {
+			echo "\n File is_NOT readable $sorce \n\n";
+		}
+
+
+		$matches = explode ("\\",$destg);
+		$filename = $matches[sizeof($matches)-1];
+		$dir = str_replace($filename, "", $destg );
+		if (is_dir($dir)) {
+			// echo" good dir $dir \n";
+		}else {
+			//echo "BAD dir $dir \n "; 
+			if ( !mkdir($dir)) { 
+				echo("can NOT create dir $dir ");
+			};
+		}
+
+		
+
+
+		$res =  copy(''.$sorce.'', ''.$destg.'');
+		if ($res ) {
+			echo "file copyed OK \n $sorce to $destg \n";
+		} else {
+			echo " Error copy file \n $sorce \n to \n $destg \n\n\n "; 
+		}	
 	}
 
 	function writeOut($handle , $line,  $ln, $BraceFlag, $CommentFlag , $echo=true ){
