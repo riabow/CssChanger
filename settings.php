@@ -11,6 +11,13 @@ $arPar  = array(
 						"selector" 	 => ".qd-app-toolbar > .DD-toolbar-flat__content",
 						"propoperty" => "margin-left",
 						"value" 	 => "300px;",
+						// "add" 	     => "1",
+					),	 
+					 array (
+						"selector" 	 => ".qd-app-toolbar > .DD-toolbar-flat__content",
+						"propoperty" => "padding",
+						"value" 	 => "1px;",
+						// "add" 	     => "1",
 					),	
 					 array (
 						"selector" 	 => ".qd-app-control-panel .DD-textedit",
@@ -227,6 +234,7 @@ array(
 		),
 
 
+
 array(
 				"file_name" => 'qd\modules\1\components\doccontrol\public\default\styles\doccontrol-icons.css',
 				"changes"   => array ( // Это изменения которые нужно сделать с существующеми параметрами 
@@ -288,7 +296,70 @@ array(
 
 		),
 
+array(
+				"file_name" => 'qd\templates\current_template\header.php',
+			//	"changes"   => array ( // Это изменения которые нужно сделать с существующеми параметрами 
+					
+			//	), 
+			//	"insert_in_file" => array(), // Это какие вставки в файл нужно сделать после указанной секции  
+			 	"append_file"  => '<?php 
 
+define(\'SITE_TEMPLATE_PATH\', substr(QD\TEMPLATE_DIR, 0, -1));
+?>
+
+<style>
+	#logoSKB{
+	
+	position: fixed;	 	
+  	float: left;
+  	width: 300px;
+    margin: 5px 0px 0px 0px;
+    border: 0px solid gray;
+   /* text-align: center;*/
+    background:  white;   
+	z-index: 10000;
+	}
+
+	.fixedd {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 280px;
+
+    }
+</style>
+
+
+<div id="logoSKB">
+	<img src="<?=SITE_TEMPLATE_PATH?>/images/skblogo.png " width=280 height="40" >
+</div>
+
+
+ ',
+
+		),
+/*
+
+
+array(
+				"file_name" => 'qd\templates\qd\components\foundation\css\foundation.css',
+				"changes"   => array ( // Это изменения которые нужно сделать с существующеми параметрами 
+					array (
+						"selector" 	 => "button, .button",
+						"propoperty" => "background-color",
+						"value" 	 => "white",
+						//"add" 	     => "1",
+					),	
+				), 
+				
+
+				//"append_file"  => "",
+
+		),
+
+*/
+
+// копирование файлов 
 
    array(
    	'copy_file' => "1", 
@@ -320,6 +391,26 @@ array(
    	'copy_file' => "1", 
    	'from' => 'skblogo.png' , 
    	'to'   => 'qd\templates\qd\images\skblogo.png', 
+   ),
+   array(
+   	'copy_file' => "1", 
+   	'from' => 'BEBAS_.TTF' , 
+   	'to'   => 'qd\templates\qd\fonts\sovkom\BEBAS_.TTF', 
+   ),
+   array(
+   	'copy_file' => "1", 
+   	'from' => 'BebasNeue Book.ttf' , 
+   	'to'   => 'qd\templates\qd\fonts\sovkom\BebasNeue Book.ttf', 
+   ),
+   array(
+   	'copy_file' => "1", 
+   	'from' => 'BebasNeue Light.ttf' , 
+   	'to'   => 'qd\templates\qd\fonts\sovkom\BebasNeue Light.ttf', 
+   ),  
+   array(
+   	'copy_file' => "1", 
+   	'from' => 'BebasNeue Regular_0.otf' , 
+   	'to'   => 'qd\templates\qd\fonts\sovkom\BebasNeue Regular_0.otf', 
    ),
 
 

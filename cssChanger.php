@@ -9,7 +9,7 @@ include "settings.php";
 $Ch = new CssChanger();
 
  $Ch->revert($arPar, $project_path, $origin_path );
- $Ch->start($arPar, $project_path);
+  $Ch->start($arPar, $project_path);
  //$Ch->only_copy($arPar, $project_path);
 
 class CssChanger{
@@ -94,7 +94,7 @@ class CssChanger{
 		    			$AddVal =$ch_value['value'];
 		    			$AddProp =$ch_value['propoperty'];
 
-		    			$this->writeOut($out_handle,  "    $AddProp : $AddVal /* This is added value */", $this->ln, $this->BraceFlag, $this->CommentFlag  ,1);
+		    			$this->writeOut($out_handle,  "    $AddProp : $AddVal; /* This is added value */", $this->ln, $this->BraceFlag, $this->CommentFlag  ,1);
 		    			unset($this->changes[$ch_key]);
 		    		}
 	    		}
