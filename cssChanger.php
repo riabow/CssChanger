@@ -88,16 +88,19 @@ class CssChanger{
 		    			$newVal = trim($ch_value['value']);
 		    			// important to have a ; at the end of $newVal! 
 		    			if (substr($newVal, -1)!=";") { $newVal.=";";}
-		    			
+
 		    			$this->writeOut($out_handle,  "    $prop : $newVal /* OLdVal:$val */", $this->ln, $this->BraceFlag, $this->CommentFlag  ,1);
 		    			$found=true;
 		    			return;
 		    		}
 		    		if (isset($ch_value['add'] )) {
-		    			$AddVal =$ch_value['value'];
+		    			$AddVal =trim($ch_value['value']);
+		    			// important to have a ; at the end of $AddVal! 
+		    			if (substr($AddVal, -1)!=";") { $AddVal.=";";}
+
 		    			$AddProp =$ch_value['propoperty'];
 
-		    			$this->writeOut($out_handle,  "    $AddProp : $AddVal; /* This is added value */", $this->ln, $this->BraceFlag, $this->CommentFlag  ,1);
+		    			$this->writeOut($out_handle,  "    $AddProp : $AddVal /* This is added value */", $this->ln, $this->BraceFlag, $this->CommentFlag  ,1);
 		    			unset($this->changes[$ch_key]);
 		    		}
 	    		}
