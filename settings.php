@@ -154,7 +154,7 @@ array(
 					 array (
 						"selector" 	 => ".default-theme .document-title-row",
 						"propoperty" => "font-size",
-						"value" 	 => "24px",
+						"value" 	 => "30px;",
 						// "add" 	 => "1",
 					),	 
 					 array (
@@ -230,6 +230,26 @@ array(
 						',),
 
 				//"append_file"  => "",
+
+		),
+
+array(
+				"file_name" => 'qd\templates\qd\themes\default\css\style.css',
+				"changes"   => array ( // Это изменения которые нужно сделать с существующеми параметрами 
+					array (
+						"selector" 	 => ".default-theme .document-title-row",
+						"propoperty" => "font-family",
+						"value" 	 => "'Bebas'",
+						"add" 	     => "1",
+					),				
+					array (
+						"selector" 	 => ".default-theme .document-title-row",
+						"propoperty" => "font-size",
+						"value" 	 => "30px;",
+						//"add" 	     => "1",
+					),			
+				), 
+				
 
 		),
 
@@ -376,6 +396,11 @@ array(
    	'copy_file' => "1", 
    	'from' => 'BebasNeue Bold.ttf'  , 
    	'to'   => 'qd\templates\qd\fonts\sovkom\BebasNeue Bold.ttf', 
+   ),   
+   array(
+   	'copy_file' => "1", 
+   	'from' => 'BebasNeue Bold.ttf'  , 
+   	'to'   => 'BebasNeue Bold.ttf', 
    ),   
    array(
    	'copy_file' => "1", 

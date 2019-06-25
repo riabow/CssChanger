@@ -85,7 +85,10 @@ class CssChanger{
 	    	foreach ($this->changes as $ch_key=>$ch_value) {
 	    		if  ($ch_value['selector'] == $this->selector) { // есть такой selector
 		    		if ($ch_value['propoperty'] == $prop ) { // есть такое свойство 
-		    			$newVal =$ch_value['value'];
+		    			$newVal = trim($ch_value['value']);
+		    			// important to have a ; at the end of $newVal! 
+		    			if (substr($newVal, -1)!=";") { $newVal.=";";}
+		    			
 		    			$this->writeOut($out_handle,  "    $prop : $newVal /* OLdVal:$val */", $this->ln, $this->BraceFlag, $this->CommentFlag  ,1);
 		    			$found=true;
 		    			return;
