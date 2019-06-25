@@ -131,23 +131,8 @@ $arPar  = array(
 
 		),
 
+
 array(
-				"file_name" => "qd\\templates\current_template\components\\foundation\css\\foundation.css",
-				"changes"   => array ( // Это изменения которые нужно сделать с существующеми параметрами 
-					//.qd-carcass-download-button
-					 array (
-						"selector" 	 => "button, .button",
-						"propoperty" => "background-color",
-						"value" 	 => "white",
-						// "add" 	 => "1",
-					),	
-
-				), 
-			//	"insert_in_file" => array(), // Это какие вставки в файл нужно сделать после указанной секции  
-			//	"append_file"  => "",
-
-		),
-		array(
 				"file_name" => "qd\\templates\current_template\\themes\default\css\style.css",
 				"changes"   => array ( // Это изменения которые нужно сделать с существующеми параметрами 
 					//.qd-carcass-download-button
